@@ -1,0 +1,37 @@
+<div class="header">
+  <ol class="breadcrumb pull-right">
+    <li><a href="/">Home (Search)</a></li>    
+    <li class="active">Search Results</li>
+  </ol>
+  
+  <h3 class="text-muted">trademark</h3>
+</div>
+
+
+<h2>Trademark search - {{ search }}</h2>
+
+<ul class="pagination">
+  <li ng-class="{ disabled : page <= 1}"><a ng-click="prevPage()" href="javascript:">&laquo;</a></li>
+  <li ng-repeat="page in pages" ng-class="{ active : page==currentPage }" ng-click="setPage(page)"><a href="javascript:">{{ page }}</a></li>  
+  <li ng-class="{ disabled : page>=numPages }"><a ng-click="nextPage()" href="javascript:">&raquo;</a></li>
+</ul>
+
+<p ng-show="loading">Please wait...</p>
+<p ng-show="!loading && results.length==0">No matching trademarks found.</p>
+
+<div class="list-group">
+  <a href="javascript:" ng-click="go(trademark)" class="list-group-item" ng-repeat="trademark in results">
+    <h4 class="list-group-item-heading">{{ trademark["case-file-header"]["mark-identification"] }}</h4>
+    <p class="list-group-item-text">
+      Serial Number: {{ trademark["serial-number"] }}<br/>
+      Owner: {{ trademark["case-file-owners"][1]["party-name"] }}<br/>
+      Status: {{ getStatus(trademark) }}     
+    </p>
+  </a>
+</div>
+
+<ul class="pagination">
+  <li ng-class="{ disabled : page <= 1}"><a ng-click="prevPage()" href="javascript:">&laquo;</a></li>
+  <li ng-repeat="page in pages" ng-class="{ active : page==currentPage }" ng-click="setPage(page)"><a href="javascript:">{{ page }}</a></li>  
+  <li ng-class="{ disabled : page>=numPages }"><a ng-click="nextPage()" href="javascript:">&raquo;</a></li>
+</ul>

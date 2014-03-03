@@ -1,0 +1,54 @@
+<div class="header">
+  <ol class="breadcrumb pull-right">
+    <li class="active">Home (Search)</li>    
+  </ol>
+  
+  <h3 class="text-muted">trademark</h3>
+</div>
+
+<div class="jumbotron">
+  <h1>Trademark search</h1>
+  <p class="lead">    
+    Search our trademark database
+  </p> 
+</div>
+
+<div class="row marketing"> 
+    <form class="form-horizontal" role="form">
+      <div class="form-group">
+      <div class="col-sm-4">
+        <select ng-model="searchtype" class="form-control">
+          <option value="mark-identification">Mark Identification</option>
+          <option value="serial">Serial Number</option>
+          <option value="owner">Trademark Owner</option>
+          <option value="correspondent">Correspondent</option>
+        </select>
+      </div>
+          
+       <div class="col-sm-8">   
+         <input type="text" class="form-control" ng-model="trademark" ng-enter="search();" id="phrase" placeholder="">
+       </div>
+      </div>
+      <div class="form-group">
+       <label class="col-sm-4 control-label">Trademark Status</label>    
+       <div class="col-sm-6">  
+         <label class="radio-inline">
+           <input type="radio" ng-model="status" value="all"> All
+         </label>
+         <label class="radio-inline">
+           <input type="radio" ng-model="status" value="live"> Live
+         </label>
+         <label class="radio-inline">
+           <input type="radio" ng-model="status" value="dead"> Dead
+         </label>
+                  
+       </div>
+      </div>
+     
+      <button type="button" ng-click="search();" class="btn btn-success btn-block">Search</button>
+    </form>
+</div>
+
+<div class="footer">
+  <p>by 28.io</p>
+</div>
