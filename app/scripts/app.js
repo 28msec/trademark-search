@@ -13,9 +13,13 @@ angular.module('trademarkApp', [
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
-      .when('/results/:status/:searchtype/:search', {
+      .when('/results/:criteria', {
         templateUrl: 'views/results.html',
         controller: 'ResultsCtrl'
+      })
+      .when('/details/:serial', {
+        templateUrl: 'views/details.html',
+        controller: 'DetailsCtrl'
       })
       .otherwise({
         redirectTo: '/'

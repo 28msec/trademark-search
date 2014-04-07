@@ -8,9 +8,9 @@
 </div>
 
 
-<h2>Trademark search - {{ search }}</h2>
+<h2>Trademark search</h2>
 
-<ul class="pagination">
+<ul ng-show="results.length>0" class="pagination">
   <li ng-class="{ disabled : page <= 1}"><a ng-click="prevPage()" href="javascript:">&laquo;</a></li>
   <li ng-repeat="page in pages" ng-class="{ active : page==currentPage }" ng-click="setPage(page)"><a href="javascript:">{{ page }}</a></li>  
   <li ng-class="{ disabled : page>=numPages }"><a ng-click="nextPage()" href="javascript:">&raquo;</a></li>
@@ -21,16 +21,21 @@
 
 <div class="list-group">
   <a href="javascript:" ng-click="go(trademark)" class="list-group-item" ng-repeat="trademark in results">
+    <div class="trademarkimage">
+        <div class="va-stick"></div>
+        <img ng-src="{{getImage(trademark)}}" alt='{{ trademark["case-file-header"]["mark-identification"] }}' onload="showImage($(this));">
+    </div>
     <h4 class="list-group-item-heading">{{ trademark["case-file-header"]["mark-identification"] }}</h4>
-    <p class="list-group-item-text">
+    <p class="list-group-item-text">    
       Serial Number: {{ trademark["serial-number"] }}<br/>
-      Owner: {{ trademark["case-file-owners"][1]["party-name"] }}<br/>
-      Status: {{ getStatus(trademark) }}     
+      Owner: {{ trademark["case-file-owners"][0]["party-name"] }}<br/>
+      Status: {{ getStatus(trademark) }}<br/>
+      Class: {{ trademark["classifications"][0]["international-code"][0] }}     
     </p>
   </a>
 </div>
 
-<ul class="pagination">
+<ul ng-show="results.length>0" class="pagination">
   <li ng-class="{ disabled : page <= 1}"><a ng-click="prevPage()" href="javascript:">&laquo;</a></li>
   <li ng-repeat="page in pages" ng-class="{ active : page==currentPage }" ng-click="setPage(page)"><a href="javascript:">{{ page }}</a></li>  
   <li ng-class="{ disabled : page>=numPages }"><a ng-click="nextPage()" href="javascript:">&raquo;</a></li>

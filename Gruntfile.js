@@ -17,7 +17,7 @@ module.exports = function (grunt) {
 
   // Define the configuration for all the tasks
   grunt.initConfig({
-
+    aws: grunt.file.readJSON("grunt-aws.json"),
     // Project settings
     yeoman: {
       // configurable paths
@@ -321,7 +321,36 @@ module.exports = function (grunt) {
         configFile: 'karma.conf.js',
         singleRun: true
       }
+    },
+    s3: {
+      options: {
+        key: '<%= aws.key %>',
+        secret: '<%= aws.secret %>',
+        access: 'public-read',
+        maxOperations: 5
+      },
+      test: {
+        bucket: '<%= aws.bucket_test %>',
+        upload: [
+          {
+            src: '<%= yeoman.dist %>/**/*',
+            dest: '',
+            rel: '<%= yeoman.dist %>/',
+          }  
+        ]
+      },
+      prod: {
+        bucket: '<%= aws.bucket_prod %>',
+        upload: [
+          {
+            src: '<%= yeoman.dist %>/**/*',
+            dest: '',
+            rel: '<%= yeoman.dist %>/',
+          }  
+        ]
+      }
     }
+    
   });
 
 
@@ -374,5 +403,15 @@ module.exports = function (grunt) {
     'newer:jshint',
     'test',
     'build'
+  ]);
+  
+  grunt.registerTask('deploy:test', [
+    'build',
+    's3:test'
+  ]);
+
+  grunt.registerTask('deploy:prod', [
+    'build',
+    's3:prod'
   ]);
 };

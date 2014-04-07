@@ -3,11 +3,9 @@
 angular.module('trademarkApp')
   .controller('MainCtrl', function ($scope, $location) {
 	  
-	$scope.trademark = "";
-	$scope.status = "all";	
-	$scope.searchtype = "mark-identification"
+	$scope.criteria = { status : "" };
 	
     $scope.search = function() {
-      $location.path("/results/" + $scope.status + "/" + encodeURIComponent($scope.searchtype) + "/"+ encodeURIComponent($scope.trademark));           
+      $location.path("/results/" + encodeURIComponent(JSON.stringify($scope.criteria)));           
     };
   });

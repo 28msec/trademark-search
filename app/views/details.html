@@ -1,0 +1,236 @@
+<div class="header">
+  <ol class="breadcrumb pull-right">
+    <li><a href="/">Home (Search)</a></li>    
+    <li class="active">Trademark {{ t['serial-number'] }}</li>
+  </ol>
+  
+  <h3 class="text-muted">trademark</h3>
+</div>
+
+<div class="row">
+ <div class="col-md-12 main-content">
+<h2>{{ t["case-file-header"]["mark-identification"] }}</h2>
+<div class="tm-image"><div class="na-image"></div><img onload="showImage($(this));" ng-src="{{src}}" ng-init="loadsrc();"></div>
+</div>
+			<div class="col-md-12">
+				<table class="table table-bordered">
+                    <tbody>
+					<tr class="markidentification-group">
+						<td class="outer-label markidentification-label">Word Mark</td>
+						<td class="outer-value markidentification-value">
+							{{ t['case-file-header']['mark-identification'] }}
+						</td>
+					</tr>
+
+					<tr class="type-of-mark-group">
+						<td class="outer-label type-of-mark-label">Type of mark</td>
+						<td class="outer-value type-of-mark-value">
+							{{  t['type-of-mark'] }}
+						</td>
+					</tr>
+
+					<tr class="serial-number-group">
+						<td class="outer-label serial-number-label">Serial Number</td>
+						<td class="outer-value serial-number-value">
+							{{ t['serial-number'] }}
+						</td>
+					</tr>
+
+					<tr class="filing-date-group">
+						<td class="outer-label filing-date-label">Filing Date</td>
+						<td class="outer-value filing-date-value">
+						   {{ fdate(t['case-file-header']['filing-date']) }}
+						</td>
+					</tr>
+
+					<tr class="registration-number-group">
+						<td class="outer-label registration-number-label">Registration
+							Number</td>
+						<td class="outer-value registration-number-value">
+						{{ t['registration-number'] }}
+						</td>
+					</tr>
+
+					<tr class="registration-date-group">
+						<td class="outer-label registration-date-label">Registration
+							Date</td>
+						<td class="outer-value registration-date-value">
+						  {{ fdate(t['case-file-header']['registration-date']) }}
+						</td>
+					</tr>
+
+					<tr class="live-dead-indicator-group">
+						<td class="outer-label live-dead-indicator-label">Live/Dead
+							Indicator</td>
+						<td class="outer-value live-dead-indicator-value">
+						  {{ getStatus(t) }}
+						</td>
+					</tr>
+
+					<tr class="abandonment-date-group">
+						<td class="outer-label abandonment-date-label">Abandonment
+							Date</td>
+						<td class="outer-value abandonment-date-value">
+						   {{ fdate(t['case-file-header']['abandonment-date']) }}
+						</td>
+					</tr>
+
+					<tr class="cancellation-date-group">
+						<td class="outer-label cancellation-date-label">Cancellation
+							date</td>
+						<td class="outer-value cancellation-date-value">
+							{{ fdate(t['case-file-header']['cancellation-date']) }}
+						</td>
+					</tr>
+
+                    </tbody>
+					<tbody ng-repeat="cl in t.classifications">
+
+					<tr class="international-code-group" >
+						<td class="outer-label international-code-label">International
+							Code(s)</td>
+						<td class="outer-value international-code-value">
+						  {{ list(cl['international-code']) }}
+						</td>
+					</tr>
+
+					<tr class="us-code-group">
+						<td class="outer-label us-code-label">US Code(s)</td>
+						<td class="outer-value us-code-value">
+						 {{ list(cl['us-code']) }} 
+						</td>
+					</tr>
+
+					<tr class="first-use-anywhere-date-group">
+						<td class="outer-label first-use-anywhere-date-label">First
+							Use Anywhere</td>
+						<td class="outer-value first-use-anywhere-date-value">
+						  {{ fdate(cl['first-use-anywhere-date']) }}
+						</td>
+					</tr>
+
+					<tr class="first-use-in-commerce-date-group">
+						<td class="outer-label first-use-in-commerce-date-label">First
+							Use In Commerce</td>
+						<td class="outer-value first-use-in-commerce-date-value">
+							{{ fdate(cl['first-use-in-commerce-date']) }}
+						</td>
+					</tr>
+
+					</tbody>
+                    <tbody>
+
+					<tr class="case-file-statements-group">
+						<td class="outer-label case-file-statements-label">Description
+							of goods and services</td>
+						<td class="outer-value case-file-statements-value">						   
+							<div ng-repeat="gs in t['goods-services']">
+							  <div class="code">{{ gs['type-code'] }}</div><div class="codevalue">{{ gs.text }}</div>
+							</div>
+							
+						</td>
+					</tr>
+
+					<tr class="mark-drawing-code-group">
+						<td class="outer-label mark-drawing-code-label">Mark
+							drawing code</td>
+						<td class="outer-value mark-drawing-code-value">							
+							<div class="code">{{ t['case-file-header']['mark-drawing-code'] }}</div>
+							<div class="codevalue">{{ t['mark-drawing-code-text'] }}</div>
+							</td>
+						</td>
+
+					</tr>
+
+					<tr class="design-search-code-group">
+						<td class="outer-label design-search-code-label">Design
+							search code</td>
+						<td class="outer-value design-search-code-value">
+						    <div ng-repeat="dc in t['design-searches']">
+							{{ dc.code }}
+                            </div>								
+						</td>
+					</tr>
+
+					<tr class="case-file-owner-group">
+						<td class="outer-label case-file-owner-label">Current
+							Owner(s)</td>
+						<td class="outer-value case-file-owner-value">
+                            <div>{{ t['case-file-owners'][0]['party-name'] }}</div>    
+                            <div>{{ t['case-file-owners'][0]['address-1'] }}</div>
+                            <div>{{ t['case-file-owners'][0]['address-2'] }}</div>
+                            <div>{{ t['case-file-owners'][0]['city'] }}</div>
+                            <div>{{ t['case-file-owners'][0]['country'] }}</div>							
+						</td>
+					</tr>
+
+
+					<tr class="correspondent-address-group">
+						<td class="outer-label correspondent-address-label">Correspondent</td>
+						<td class="outer-value correspondent-address-value">
+						  <div>{{ t.correspondent['address-1'] }}</div>
+						  <div>{{ t.correspondent['address-2'] }}</div>
+						  <div>{{ t.correspondent['address-3'] }}</div>
+						  <div>{{ t.correspondent['address-4'] }}</div>							
+						</td>
+					</tr>
+
+					<tr class="attorney-name-group">
+						<td class="outer-label attorney-name-label">Attorney of
+							Record</td>
+						<td class="outer-value attorney-name-value">
+							{{ t['case-file-header']['attorney-name'] }}
+						</td>
+					</tr>
+
+					<tr class="status-code-group">
+						<td class="outer-label status-code-label">Current status</td>
+						<td class="outer-value status-code-value">
+						  <div class="code">{{ t['case-file-header']['status-code'] }}</div><div class="codevalue">{{ t['status-code-text'] }}</div>						  
+						</td>
+					</tr>
+
+					<tr class="status-date-group">
+						<td class="outer-label status-date-label">Status date</td>
+						<td class="outer-value status-date-value">
+						  {{ fdate(t['case-file-header']['status-date']) }}							
+						</td>
+					</tr>
+					
+					<tr class="translation-group">
+						<td class="outer-label translation-label">Translation</td>
+						<td class="outer-value translation-value">
+							<div ng-repeat="tr in t.translations">{{ tr.text }}</div>
+						</td>
+					</tr>
+					
+					
+					<tr class="descriptions-group">
+						<td class="outer-label descriptions-label">Description</td>
+						<td class="outer-value descriptions-value">
+							<div ng-repeat="d in t.descriptions">{{ t.text }}</div>
+						</td>
+					</tr>
+					
+					
+					<tr class="pseudo-marks-group">
+						<td class="outer-label pseudo-marks-label">Pseudo-Marks</td>
+						<td class="outer-value pseudo-marks-value">
+							<div ng-repeat="pm in t['pseudo-marks']">{{ pm.text }}</div>
+						</td>
+					</tr>
+					
+					<tr class="case-file-event-statements-group">
+						<td class="outer-label case-file-event-statements-label">History</td>
+						<td class="outer-value case-file-event-statements-value">
+						  
+							<div ng-repeat="ev in t['case-file-event-statements']">
+							  <div class="code" >{{ fdate(ev.date) }}</div>
+							  <div class="codevalue">{{ ev['description-text'] }}</div>
+							</div>
+						  								
+						</td>
+					</tr>
+                   </tbody>
+				</table>
+			</div>

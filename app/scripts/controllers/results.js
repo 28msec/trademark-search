@@ -1,10 +1,8 @@
 'use strict';
 
 angular.module('trademarkApp')
-  .controller('ResultsCtrl', function ($scope, API_URL, $http, $routeParams) {
-	$scope.searchtype = $routeParams.searchtype;
-    $scope.search = $routeParams.search;
-    $scope.status = $routeParams.status;
+  .controller('ResultsCtrl', function ($scope, API_URL, $http, $routeParams, $location) {
+	$scope.criteria = JSON.parse(decodeURIComponent($routeParams.criteria));    
     $scope.results = null;
     $scope.loading = false;
     
@@ -17,18 +15,15 @@ angular.module('trademarkApp')
     $scope.load = function() {
     	 $scope.loading = true;
     	 $scope.currentPage = $scope.page;
-    	 var params = {};
-    	 params[$scope.searchtype] = $scope.search;
-    	 if ($scope.status != "all") params.status = $scope.status;
-    	 params.page = $scope.page;
+    	 $scope.criteria.page = $scope.page;    	 
     	 $http({
   			method: 'GET', 
   			url: API_URL + '/_queries/public/search.jq',
-  			params: params
+  			params: $scope.criteria
   		}).success(function(data, status, headers, config) {
   			console.log(data);
-  			$scope.numResults = data.numResults;
-  			$scope.numPages = data.numPages;
+  			$scope.numResults = data.numberOfResults;
+  			$scope.numPages = data.numberOfPages;
   			$scope.currentPage = data.currentPage;
   			$scope.results = data.results;
   			$scope.loading = false;
@@ -72,7 +67,8 @@ angular.module('trademarkApp')
     };
     
     $scope.go = function(trademark) {
-    	document.location.href = trademark.url;    	         
+    	$location.path("/details/" + encodeURIComponent(trademark['serial-number']));           
+    	//document.location.href = trademark.url;    	         
     };
     
     $scope.getStatus = function(trademark) {
@@ -81,5 +77,16 @@ angular.module('trademarkApp')
     			trademark["case-file-header"]["cancellation-date"] != null) ? "Dead" : "Live";    	
     };
     
+    $scope.getImage = function(trademark) { 
+        return  "//tsdr.uspto.gov/img/" + trademark["serial-number"] + "/large";
+    };
+    
     $scope.load();
   });
+
+function showImage(obj) {
+    var p=obj.prev(); 
+    p.css('background', 'none'); 
+    p.css('width', '0px'); 
+    obj.css('display', 'inline'); 
+};

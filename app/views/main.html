@@ -16,30 +16,63 @@
 <div class="row marketing"> 
     <form class="form-horizontal" role="form">
       <div class="form-group">
-      <div class="col-sm-4">
-        <select ng-model="searchtype" class="form-control">
-          <option value="mark-identification">Mark Identification</option>
-          <option value="serial">Serial Number</option>
-          <option value="owner">Trademark Owner</option>
-          <option value="correspondent">Correspondent</option>
-        </select>
-      </div>
-          
+
+        <label class="col-sm-4 control-label">Serial-Number</label>            
+           
        <div class="col-sm-8">   
-         <input type="text" class="form-control" ng-model="trademark" ng-enter="search();" id="phrase" placeholder="">
+         <input type="text" class="form-control" ng-model="criteria['serial-number']" ng-enter="search();" placeholder="">
        </div>
       </div>
+      
+      <div class="form-group">
+    
+        <label class="col-sm-4 control-label">Mark Identification</label>            
+       
+       <div class="col-sm-8">   
+         <input type="text" class="form-control" ng-model="criteria['mark-identification']" ng-enter="search();" placeholder="">
+       </div>
+      </div>
+      
+       <div class="form-group">     
+         <label class="col-sm-4 control-label">Trademark Owner</label>                      
+         <div class="col-sm-8">   
+           <input type="text" class="form-control" ng-model="criteria.owner" ng-enter="search();" placeholder="">
+         </div>
+      </div>
+      
+      <div class="form-group">    
+        <label class="col-sm-4 control-label">Correspondent</label>                         
+        <div class="col-sm-8">   
+          <input type="text" class="form-control" ng-model="criteria.correspondent" ng-enter="search();" placeholder="">
+        </div>
+      </div>
+      
+       <div class="form-group">    
+          <label class="col-sm-4 control-label">International Class</label>                         
+       <div class="col-sm-8">   
+         <input type="text" class="form-control" ng-model="criteria['international-code']" ng-enter="search();" placeholder="">
+       </div>
+       </div>
+      
+       <div class="form-group">     
+         <label class="col-sm-4 control-label">Design Code</label>                  
+       <div class="col-sm-8">   
+         <input type="text" class="form-control" ng-model="criteria['design-code']" ng-enter="search();" placeholder="">
+       </div>
+      </div>
+      
+            
       <div class="form-group">
        <label class="col-sm-4 control-label">Trademark Status</label>    
        <div class="col-sm-6">  
          <label class="radio-inline">
-           <input type="radio" ng-model="status" value="all"> All
+           <input type="radio" ng-model="criteria.status" value=""> All
          </label>
          <label class="radio-inline">
-           <input type="radio" ng-model="status" value="live"> Live
+           <input type="radio" ng-model="criteria.status" value="live"> Live
          </label>
          <label class="radio-inline">
-           <input type="radio" ng-model="status" value="dead"> Dead
+           <input type="radio" ng-model="criteria.status" value="dead"> Dead
          </label>
                   
        </div>
