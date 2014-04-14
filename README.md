@@ -9,7 +9,7 @@ Development Setup
 
 - install nodejs : http://nodejs.org/download/
 - install git: http://git-scm.com/downloads/
-- add the path to the git.exe (C:\Program Files (x86)\Git\bin\) to the PATH system variable
+- If you are using Windows, add the path to the git.exe (C:\Program Files (x86)\Git\bin) to the PATH system variable
 - install yeoman: https://github.com/yeoman/yeoman/wiki/Getting-Started
 
 ```
@@ -17,19 +17,18 @@ npm install -g yo
 npm install -g grunt grunt-cli bower
 ```
 
-- clone the repository
+- clone this repository
 
 Backend
 -------
 
-The backend is located in the /queries directory.
-Create an account on http://28.io and install the 28.io command line tool
+Create an account and a project on http://28.io. Configure the trademark datasource to the project. Install the 28.io command line tool as follows:
 
 ```
 $ npm install 28 -g
 ```
 
-Create a project with a mongoDB of your choice on 28.io. Inside the /queries directory you can then use the CLI to deploy this project:
+Inside the /queries directory you can then use the CLI to deploy this project:
 
 ```
 $ 28 login <your email>
